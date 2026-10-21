@@ -1,6 +1,6 @@
 # Deliz — бронирование столов (прототип)
 
-Приложение бронирования столов винотеки Deliz. Без сборки, бесплатно: фронтенд на GitHub Pages,
+Приложение бронирования столов винотеки Deliz. Без сборки, бесплатно: фронтенд на Vercel,
 данные в Google Sheets «Deliz · Rezervacije» через Apps Script (`backend/`, контракт — `docs/API.md`).
 Вернуть демо-режим (localStorage): `DATA_ADAPTER = 'demo'` в `shared/data/index.js`.
 
@@ -41,30 +41,40 @@ npm test          # юнит-тесты (Node 18+), зависимостей н�
 npm start         # http://localhost:5173  (python3 http.server)
 ```
 
-## Деплой на GitHub Pages
+## Деплой (Vercel)
 
-Репозиторий уже настроен: Pages публикует ветку `main`, корень `/`. Любой `git push` в `main`
-обновляет сайт примерно за минуту.
+Продакшн: **https://deliz-rezervacije.vercel.app/** — проект `deliz-rezervacije` на Vercel,
+framework «Other», без сборки, корень репозитория отдаётся как есть. Настройки — `vercel.json`
+(заголовки для service worker и манифеста, `/guest/` разрешено встраивать в iframe на любом домене),
+`.vercelignore` исключает `референс/`.
 
-С нуля (если понадобится в другом аккаунте):
+Каждый `git push` в `main` автоматически деплоится в продакшн (Vercel ↔ GitHub). Вручную:
 
 ```bash
-git init && git add . && git commit -m "Deliz prototip"
-gh repo create deliz-rezervacije --public --source=. --push
-gh api -X POST repos/<USER>/deliz-rezervacije/pages -f "source[branch]=main" -f "source[path]=/"
-# через ~1 мин: https://<USER>.github.io/deliz-rezervacije/
+npx vercel --prod
 ```
 
-(Или в GitHub: Settings → Pages → Deploy from a branch → `main` / `root`.)
-Бесплатный GitHub Pages требует публичный репозиторий; в коде нет секретов — только демо-данные.
+Бэкенд — Apps Script, URL в `shared/data/index.js`. Запросы идут POST с `Content-Type: text/plain`,
+поэтому CORS работает с любого домена, прокси не нужен.
 
 После изменения файлов приложения увеличьте `CACHE` в `staff/sw.js` (`deliz-staff-v2` …),
 чтобы установленные на iPad копии быстрее подхватили новую версию.
 
+### WordPress
+
+Блок «Custom HTML»:
+
+```html
+<div id="deliz-booking"></div>
+<script src="https://deliz-rezervacije.vercel.app/guest/embed.js" data-lang="sl" async></script>
+```
+
+Прямая ссылка на форму: https://deliz-rezervacije.vercel.app/guest/
+
 ## Установка на iPad
 
-Safari → открыть `…/staff/` → **Поделиться → На экран «Домой»**. Откроется без адресной строки,
-с иконкой Deliz, работает без сети.
+Safari → открыть **https://deliz-rezervacije.vercel.app/staff/** → **Поделиться → На экран «Домой»**.
+Откроется без адресной строки, с иконкой Deliz. Вход: Gleb или Franc + PIN.
 
 ## Ограничения демо-режима (`DATA_ADAPTER = 'demo'`)
 

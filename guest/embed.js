@@ -2,7 +2,7 @@
  * Deliz — vdelava obrazca za rezervacije v katerokoli stran (WordPress: blok «Custom HTML»).
  *
  *   <div id="deliz-booking"></div>
- *   <script src="https://<uporabnik>.github.io/<repo>/guest/embed.js" data-lang="sl" async></script>
+ *   <script src="https://deliz-rezervacije.vercel.app/guest/embed.js" data-lang="sl" async></script>
  *
  * data-lang: sl | en | de | it (neobvezno; privzeto jezik brskalnika)
  * data-theme: light | dark | system (neobvezno; privzeto system — sledi napravi obiskovalca)
