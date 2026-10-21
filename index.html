@@ -4,56 +4,48 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Deliz · Rezervacije</title>
-  <meta name="theme-color" content="#2e0e18">
+  <meta name="theme-color" content="#0D0D0D">
   <link rel="icon" type="image/png" href="staff/icons/favicon.png">
   <link rel="apple-touch-icon" href="staff/icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="shared/ui/tokens.css">
   <style>
-    body {
-      min-height: 100dvh; margin: 0; display: flex; align-items: center; justify-content: center; padding: 32px 16px;
-      background: var(--wine-900);
-      background-image: radial-gradient(90% 60% at 50% 0%, rgb(118 40 63 / 0.7), transparent 70%), radial-gradient(60% 50% at 50% 110%, rgb(180 138 78 / 0.2), transparent 70%);
-      color: var(--cream-50);
-    }
-    .wrap { width: min(760px, 100%); text-align: center; }
-    .word { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(64px, 14vw, 104px); line-height: 1; }
-    .sub { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 12px; }
-    p.lead { color: rgb(246 239 227 / 0.75); font-size: 18px; line-height: 1.6; margin: 28px auto 36px; max-width: 520px; }
-    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; }
-    a.c {
-      display: flex; flex-direction: column; gap: 8px; padding: 26px; border-radius: 22px; text-decoration: none; color: inherit;
-      background: rgb(255 255 255 / 0.05); border: 1px solid rgb(234 216 182 / 0.2); min-height: 170px; transition: background 0.15s;
-    }
-    a.c:hover { background: rgb(255 255 255 / 0.09); }
-    .c b { font-family: var(--font-display); font-weight: 400; font-size: 28px; }
-    .c span { color: rgb(246 239 227 / 0.7); line-height: 1.5; font-size: 15px; }
-    .c em { margin-top: auto; font-style: normal; color: var(--gold-soft); font-weight: 700; font-size: 14px; }
-    .foot { margin-top: 30px; font-size: 13px; color: rgb(246 239 227 / 0.5); line-height: 1.6; }
-    .foot a { color: var(--gold-soft); }
-    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+    body { min-height: 100dvh; display: flex; justify-content: center; }
+    .wrap { width: min(36rem, 100%); padding: 64px 20px 40px; text-align: center; position: relative; animation: fade-in-up 0.32s ease-out both; }
+    .glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 20rem; height: 7rem; border-radius: 50%; background: #fff; filter: blur(64px); opacity: 0.07; }
+    .logo { height: 112px; width: auto; }
+    .sub { margin-top: 26px; font-family: var(--font-serif); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .lead { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 14px auto 36px; max-width: 26rem; }
+    .cards { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+    a.c { display: flex; align-items: center; gap: 16px; padding: 22px 6px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--border); text-align: left; transition: background 0.2s; }
+    a.c:hover { background: rgb(255 255 255 / 0.03); }
+    .c div { flex: 1; }
+    .c b { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.05rem; letter-spacing: 0.06em; }
+    .c small { display: block; margin-top: 6px; font-size: 11px; color: var(--muted); line-height: 1.6; }
+    .c em { font-style: normal; font-size: 9.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .foot { margin-top: 30px; font-size: 10px; color: rgb(140 138 124 / 0.6); line-height: 1.8; }
+    .foot a { color: var(--cream); text-decoration: none; border-bottom: 1px solid var(--accent-35); }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="word">Deliz</div>
-    <div class="sub">rezervacije · prototip</div>
+    <div class="glow" aria-hidden="true"></div>
+    <img class="logo" src="shared/ui/deliz-logo.png" alt="Deliz">
+    <div class="sub">Rezervacije · prototip</div>
     <p class="lead">Rezervacije miz brez papirja: aplikacija za osebje na iPadu in obrazec za goste na spletni strani.</p>
     <div class="cards">
       <a class="c" href="staff/">
-        <b>Za osebje</b>
-        <span>Nova rezervacija v nekaj dotikih, pregled dneva, shema miz, spletne zahteve.</span>
-        <em>Odpri aplikacijo → &nbsp;PIN 1234</em>
+        <div><b>Za osebje</b><small>Nova rezervacija v nekaj dotikih, pregled dneva, shema miz, spletne zahteve. PIN 1234.</small></div>
+        <em>Odpri →</em>
       </a>
       <a class="c" href="guest/">
-        <b>Za goste</b>
-        <span>Obrazec v slovenščini, angleščini, nemščini in italijanščini — samo prosti dnevi.</span>
-        <em>Odpri obrazec →</em>
+        <div><b>Za goste</b><small>Obrazec v slovenščini, angleščini, nemščini in italijanščini — samo prosti dnevi.</small></div>
+        <em>Odpri →</em>
       </a>
     </div>
-    <p class="foot">Demo način: podatki so shranjeni samo v tem brskalniku. Zahteva iz obrazca se pojavi v aplikaciji za osebje na isti napravi.<br>
+    <p class="foot">Demo način: podatki so shranjeni samo v tem brskalniku.<br>Zahteva iz obrazca se pojavi v aplikaciji za osebje na isti napravi.<br><br>
       <a href="guest/embed-demo.html">Primer vdelave v spletno stran</a></p>
   </div>
 </body>

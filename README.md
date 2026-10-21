@@ -2,6 +2,11 @@
 
 Статический прототип для показа владельцу винотеки Deliz. Без сборки, без логинов, бесплатно.
 
+Дизайн повторяет сайт винной карты Deliz (папка `референс/`, в git не входит): чёрный фон `#0D0D0D`,
+кремовый `#FEFFE8`, белый акцент, бордовый `#8C2233`, засечки Bookmania → Bookman Old Style → Georgia,
+Inter для интерфейса и цифр. Токены — `shared/ui/tokens.css`, логотип — `shared/ui/deliz-logo.png`.
+Чтобы подключить настоящий Bookmania, добавьте лицензированный @font-face/Adobe Fonts в `<head>` страниц.
+
 - **`/staff/`** — приложение персонала (iPad, PWA, словенский). Вход: Gleb или Franc, PIN `1234`.
 - **`/guest/`** — форма для гостей (SL / EN / DE / IT).
 - **`/guest/embed.js`** — сниппет для WordPress, пример: `/guest/embed-demo.html`.

@@ -113,6 +113,7 @@ function stepSent() {
     </div>`;
 }
 
+let lastStep = null;
 function render() {
   const steps = t().steps;
   const body = [stepGuests, stepDate, stepTime, stepContact, stepSent][S.step]();
@@ -120,21 +121,26 @@ function render() {
   $g.innerHTML = `
     <div class="card">
       <header class="head">
-        <div class="brand"><span class="brand-word">Deliz</span><span class="brand-sub">vinoteka</span></div>
         <nav class="langs" aria-label="Language">
-          ${LANGS.map((l) => `<button class="lang ${S.lang === l ? 'is-on' : ''}" data-act="lang" data-l="${l}" aria-pressed="${S.lang === l}">${l.toUpperCase()}</button>`).join('')}
+          ${LANGS.map((l) => `<button class="lang ${S.lang === l ? 'is-on' : ''}" data-act="lang" data-l="${l}" aria-pressed="${S.lang === l}">${l.toUpperCase()}</button>`).join('<span class="lang-sep" aria-hidden="true">|</span>')}
         </nav>
+        <div class="glow" aria-hidden="true"></div>
+        <h1 class="logo"><img src="../shared/ui/deliz-logo.png" alt="Deliz"></h1>
       </header>
       ${S.step < 4 ? `
         <div class="intro">
-          <h1 class="title">${t().title}</h1>
+          <h2 class="title">${t().title}</h2>
           <p class="lead">${t().lead}</p>
         </div>
         <ol class="progress">${steps.map((s, i) => `<li class="${i < S.step ? 'is-done' : i === S.step ? 'is-on' : ''}"><span>${i + 1}</span>${s}</li>`).join('')}</ol>
         ${summary()}` : ''}
-      <section class="step" aria-live="polite">${body}</section>
+      <section class="step ${S.step !== lastStep ? 'is-new' : ''}" aria-live="polite">${body}</section>
       ${S.step > 0 && S.step < 4 ? `<button class="back" data-act="back">← ${t().back}</button>` : ''}
-    </div>`;
+    </div>
+    ${embedded ? '' : `<footer class="foot">
+      <p>PE Deliz vino &amp; delikatesa</p><p>Vodnikov trg 4</p><p>SI-2000 Maribor</p>
+    </footer>`}`;
+  lastStep = S.step;
   postHeight();
 }
 

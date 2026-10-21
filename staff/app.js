@@ -65,6 +65,7 @@ function allRes() {
 // ---------- podatki ----------
 
 let lastSig = '';
+let lastView = null;
 async function refresh() {
   try {
     const t = todayISO();
@@ -171,7 +172,9 @@ function render() {
     $app.innerHTML = lockScreen();
   } else {
     if (S.view === 'new') syncSuggestion();
-    $app.innerHTML = `${rail()}<main class="main view-${S.view}">${S.loaded ? view() : '<div class="loading">Nalagam …</div>'}</main>`;
+    const fresh = S.view !== lastView;
+    lastView = S.view;
+    $app.innerHTML = `${rail()}<main class="main view-${S.view} ${fresh ? 'is-new' : ''}">${S.loaded ? view() : '<div class="loading">Nalagam …</div>'}</main>`;
   }
   renderModal();
 
@@ -199,7 +202,7 @@ function rail() {
     </button>`;
   return `
     <nav class="rail" aria-label="Glavni meni">
-      <div class="brand"><span class="brand-word">Deliz</span><span class="brand-sub">vinoteka</span></div>
+      <div class="brand"><img src="../shared/ui/deliz-logo.png" alt="Deliz"></div>
       ${item('new', 'plus', 'Nova')}
       ${item('today', 'list', 'Pregled')}
       ${item('requests', 'inbox', 'Zahteve', n ? `<span class="badge">${n}</span>` : '')}
@@ -219,7 +222,7 @@ function lockScreen() {
   if (!p.user) {
     return `
       <div class="lock">
-        <div class="lock-brand"><span class="brand-word">Deliz</span><span class="brand-sub">rezervacije</span></div>
+        <div class="lock-brand"><img src="../shared/ui/deliz-logo.png" alt="Deliz"><span class="caps">Rezervacije</span></div>
         <h1 class="lock-q">Kdo dela danes?</h1>
         <div class="lock-people">
           ${STAFF.map((s) => `<button class="person" data-act="pick-user" data-id="${s.id}"><span class="person-i">${s.name[0]}</span>${s.name}</button>`).join('')}
@@ -231,7 +234,7 @@ function lockScreen() {
   const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'back', '0', 'ok'];
   return `
     <div class="lock">
-      <div class="lock-brand"><span class="brand-word">Deliz</span><span class="brand-sub">rezervacije</span></div>
+      <div class="lock-brand"><img src="../shared/ui/deliz-logo.png" alt="Deliz"><span class="caps">Rezervacije</span></div>
       <h1 class="lock-q">Živjo, ${esc(STAFF.find((s) => s.id === p.user).name)}</h1>
       <p class="lock-hint">Vnesi PIN <span class="demo-tag">demo: ${DEMO_PIN}</span></p>
       <div class="dots ${p.error ? 'is-err' : ''}">${dots}</div>
@@ -602,7 +605,8 @@ function renderModal() {
       </div>
     </div>`;
   }
-  $modal.innerHTML = `<div class="modal" data-act="backdrop">${body}</div>`;
+  const fresh = !$modal.firstElementChild;
+  $modal.innerHTML = `<div class="modal ${fresh ? 'is-new' : ''}" data-act="backdrop">${body}</div>`;
 }
 
 // ---------- dejanja ----------

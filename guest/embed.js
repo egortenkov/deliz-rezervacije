@@ -17,7 +17,7 @@
   iframe.src = base + '?embed=1' + (lang ? '&lang=' + encodeURIComponent(lang) : '');
   iframe.title = 'Deliz — rezervacija mize';
   iframe.loading = 'lazy';
-  iframe.style.cssText = 'width:100%;max-width:640px;border:0;display:block;margin:0 auto;height:620px;overflow:hidden;background:transparent;';
+  iframe.style.cssText = 'width:100%;max-width:640px;border:0;display:block;margin:0 auto;height:620px;overflow:hidden;background:#0D0D0D;border-radius:16px;';
   iframe.setAttribute('scrolling', 'no');
 
   if (target) target.appendChild(iframe);

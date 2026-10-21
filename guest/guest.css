@@ -1,120 +1,125 @@
-/* Deliz — obrazec za goste */
+/* Deliz — obrazec za goste. Slog po spletni vinski karti Deliz. */
 
-body {
-  min-height: 100dvh; font-size: 17px;
-  background: var(--cream-100);
-  background-image:
-    radial-gradient(70% 50% at 100% 0%, rgb(147 55 79 / 0.10), transparent 70%),
-    radial-gradient(60% 40% at 0% 100%, rgb(180 138 78 / 0.12), transparent 70%);
-}
-.is-embed body { background: transparent; min-height: 0; }
+body { min-height: 100dvh; font-size: 16px; }
+.is-embed body { min-height: 0; background: var(--bg); }
 
-.g { padding: 40px 16px 56px; display: flex; justify-content: center; }
-.is-embed .g { padding: 0; }
+.g { max-width: 36rem; margin: 0 auto; padding: 0 0 24px; }
+.is-embed .g { padding: 0 0 16px; }
 
-.card {
-  width: min(640px, 100%); background: var(--cream-50); border-radius: 28px;
-  border: 1px solid var(--line); box-shadow: 0 30px 80px -30px rgb(46 14 24 / 0.25);
-  padding: 28px 36px 32px; position: relative;
-}
-.is-embed .card { box-shadow: none; }
+.card { padding: 0 20px 8px; }
 
-.head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 26px; }
-.brand { display: flex; align-items: baseline; gap: 10px; color: var(--wine-800); }
-.brand-word { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 30px; }
-.brand-sub { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
-.langs { display: flex; gap: 2px; background: var(--cream-200); border-radius: 12px; padding: 3px; }
-.lang { border: 0; background: transparent; min-width: 44px; min-height: 40px; border-radius: 9px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--ink-2); }
-.lang.is-on { background: var(--cream-50); color: var(--wine-700); box-shadow: var(--shadow-1); }
+/* glava kot v vinski karti */
+.head { position: relative; padding: 64px 4px 30px; text-align: center; }
+.is-embed .head { padding-top: 54px; }
+.glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 20rem; height: 7rem; border-radius: 50%; background: var(--accent); filter: blur(64px); opacity: 0.07; pointer-events: none; }
+.logo { margin: 0; display: flex; justify-content: center; }
+.logo img { height: 96px; width: auto; object-fit: contain; }
+.langs { position: absolute; top: 22px; right: 0; z-index: 2; display: flex; align-items: center; gap: 2px; font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: var(--muted); }
+.lang { border: 0; background: transparent; color: var(--muted); font-size: 10px; letter-spacing: 0.15em; font-weight: 500; min-width: 34px; min-height: 40px; padding: 0 2px; transition: color 0.2s; }
+.lang:hover { color: var(--cream); }
+.lang.is-on { color: var(--accent); font-weight: 600; }
+.lang-sep { color: var(--border); }
 
-.intro { margin-bottom: 22px; }
-.title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 42px; line-height: 1.05; letter-spacing: -0.02em; color: var(--wine-800); }
-.lead { margin: 10px 0 0; color: var(--ink-2); line-height: 1.5; }
+.intro { text-align: center; margin-bottom: 26px; }
+.title { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.lead { margin: 12px auto 0; color: var(--muted); font-size: 12.5px; line-height: 1.7; max-width: 26rem; }
 
-.progress { list-style: none; padding: 0; margin: 0 0 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; counter-reset: s; }
+/* koraki — kot zavihki skupin v vinski karti */
+.progress { list-style: none; padding: 0; margin: 0 0 18px; display: flex; border-bottom: 1px solid var(--border); }
 .progress li {
-  display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--muted);
-  padding-top: 10px; border-top: 3px solid var(--cream-200);
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 0;
+  font-size: 10.5px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;
 }
-.progress li span { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; background: var(--cream-200); flex: none; }
-.progress li.is-on { color: var(--wine-700); border-color: var(--wine-700); }
-.progress li.is-on span { background: var(--wine-700); color: var(--cream-50); }
-.progress li.is-done { color: var(--ink-2); border-color: var(--gold); }
-.progress li.is-done span { background: var(--gold-soft); color: var(--wine-900); }
+.progress li span { font-weight: 300; opacity: 0.6; }
+.progress li.is-on { color: var(--accent); border-bottom-color: var(--accent); background: var(--accent-12); }
+.progress li.is-done { color: var(--text-2); }
 
-.sum { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.sum-chip { border: 1px solid var(--gold); background: var(--gold-soft); color: var(--wine-900); border-radius: 20px; padding: 6px 14px; font-size: 14px; font-weight: 600; }
+.sum { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 4px 0 6px; }
+.sum-chip { border: 0; background: transparent; color: var(--text-2); font-family: var(--font-serif); font-size: 14px; letter-spacing: 0.06em; padding: 6px 0; border-bottom: 1px solid var(--border-2); }
+.sum-chip:hover { color: var(--cream); border-color: var(--accent-35); }
 
 .step { min-height: 200px; }
-.q { margin: 6px 0 6px; font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--ink); }
-.note { margin: 0 0 16px; color: var(--muted); font-size: 15px; line-height: 1.5; }
-.note a, .empty a { color: var(--wine-700); font-weight: 700; }
-.empty { padding: 18px; border-radius: 14px; background: var(--wine-100); color: var(--wine-800); line-height: 1.5; }
+.step.is-new { animation: fade-in-up 0.32s ease-out both; }
+.q { margin: 22px 0 8px; text-align: center; font-family: var(--font-serif); font-weight: 400; font-size: 21px; letter-spacing: 0.06em; color: var(--cream); }
+.note { margin: 0 auto 16px; text-align: center; color: var(--muted); font-size: 12px; line-height: 1.7; max-width: 28rem; }
+.note a, .empty a { color: var(--cream); text-decoration: none; border-bottom: 1px solid var(--accent-35); }
+.empty { margin: 16px 0; padding: 24px; border-radius: 16px; text-align: center; font-size: 13px; line-height: 1.7; border: 1px solid rgb(140 34 51 / 0.25); background: rgb(140 34 51 / 0.07); color: var(--text-2); }
 
-.grid { display: grid; gap: 10px; margin: 14px 0 16px; }
+.grid { display: grid; gap: 8px; margin: 16px 0 18px; }
 .grid--guests { grid-template-columns: repeat(4, 1fr); }
-.grid--dates { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); margin-top: 8px; }
-.grid--times { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.grid--dates { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); margin-top: 8px; }
+.grid--times { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); }
 .opt {
-  min-height: 60px; border-radius: 16px; border: 1.5px solid var(--line); background: #fff; color: var(--ink);
-  transition: border-color 0.15s, background 0.15s, transform 0.08s;
+  min-height: 60px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--cream);
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.12s;
 }
-.opt:hover { border-color: var(--wine-500); }
-.opt:active { transform: scale(0.97); }
-.opt.is-on { background: var(--wine-700); border-color: var(--wine-700); color: var(--cream-50); }
-.opt--num { font-family: var(--font-display); font-size: 28px; min-height: 72px; }
-.opt--time { font-family: var(--font-display); font-size: 22px; }
-.opt--date { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 76px; }
-.od-wd { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.od-day { font-family: var(--font-display); font-size: 26px; line-height: 1; }
-.opt--date.is-on .od-wd { color: var(--gold-soft); }
-.month { margin-top: 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wine-600); }
+.opt:hover { border-color: var(--border-2); background: var(--surface-2); }
+.opt:active { transform: scale(0.96); }
+.opt.is-on { background: var(--accent-12); border-color: var(--accent); color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+.opt--num { font-family: var(--font-serif); font-size: 24px; min-height: 68px; }
+.opt--time { font-family: var(--font-serif); font-size: 18px; letter-spacing: 0.04em; }
+.opt--date { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 72px; }
+.od-wd { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.od-day { font-family: var(--font-serif); font-size: 22px; line-height: 1; }
+.opt--date.is-on .od-wd { color: var(--text-2); }
+.month { margin-top: 22px; text-align: center; font-family: var(--font-serif); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 
-.form { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.form { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; }
 .form-row { display: grid; grid-template-columns: 1fr 1.3fr; gap: 12px; }
-.fld { display: flex; flex-direction: column; gap: 6px; }
-.fld > span { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-2); }
+.fld { display: flex; flex-direction: column; gap: 7px; }
+.fld > span { font-size: 9.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .fld input, .fld textarea {
-  width: 100%; min-height: 56px; border-radius: 14px; border: 1.5px solid var(--cream-300); background: #fff;
-  padding: 14px 16px; font-size: 17px; outline: none; resize: vertical;
+  width: 100%; min-height: 54px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--cream);
+  padding: 14px 16px; font-size: 16px; outline: none; resize: vertical; transition: border-color 0.2s, background 0.2s;
 }
-.fld input:focus, .fld textarea:focus { border-color: var(--wine-600); box-shadow: 0 0 0 4px rgb(118 40 63 / 0.12); }
-.fld.is-err input { border-color: var(--danger); }
-.fld em, .err { font-style: normal; font-size: 13.5px; color: var(--danger); font-weight: 600; }
-.consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; color: var(--ink-2); padding: 14px; border-radius: 14px; background: var(--cream-100); cursor: pointer; }
-.consent input { width: 24px; height: 24px; flex: none; margin: 0; accent-color: var(--wine-700); }
-.consent.is-err { outline: 1.5px solid var(--danger); }
+.fld input::placeholder, .fld textarea::placeholder { color: var(--muted-2); font-weight: 300; }
+.fld input:focus, .fld textarea:focus { border-color: var(--accent-35); background: var(--surface-2); }
+.fld.is-err input { border-color: var(--burgundy-2); }
+.fld em, .err { font-style: normal; font-size: 11.5px; color: #E0707F; letter-spacing: 0.02em; }
+.consent { display: flex; gap: 14px; align-items: flex-start; font-size: 12px; line-height: 1.7; color: var(--muted); padding: 16px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; }
+.consent input { width: 22px; height: 22px; flex: none; margin: 1px 0 0; accent-color: var(--cream); }
+.consent.is-err { border-color: var(--burgundy-2); }
 .send {
-  min-height: 64px; border: 0; border-radius: 16px; background: var(--wine-700); color: var(--cream-50);
-  font-family: var(--font-display); font-size: 22px; margin-top: 4px;
-  box-shadow: 0 10px 24px rgb(91 29 48 / 0.28);
+  min-height: 60px; border-radius: 999px; border: 1px solid var(--cream); background: var(--cream); color: var(--bg);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; margin-top: 6px;
+  transition: transform 0.15s, background 0.2s;
 }
-.send:disabled { opacity: 0.6; }
-.send:active { transform: scale(0.99); }
+.send:hover { background: #E9EAD2; }
+.send:disabled { opacity: 0.5; }
+.send:active { transform: scale(0.98); }
 
-.back { margin-top: 18px; border: 0; background: transparent; color: var(--wine-700); font-weight: 600; min-height: 44px; padding: 0; }
-.link { border: 0; background: transparent; color: var(--wine-700); font-weight: 700; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+.back { display: block; margin: 22px auto 0; border: 0; background: transparent; color: var(--muted); font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; min-height: 44px; padding: 0 12px; }
+.back:hover { color: var(--cream); }
+.link {
+  margin-top: 18px; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--accent-35); background: transparent; color: var(--accent);
+  font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+}
+.link:hover { background: rgb(255 255 255 / 0.08); }
 
-.sent { text-align: center; padding: 24px 0 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.sent-ico { width: 84px; height: 84px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; margin-bottom: 10px; animation: pop 0.45s ease; }
-.sent .q { font-size: 34px; color: var(--wine-800); }
-.sent-sum { margin: 0 0 6px; font-weight: 600; color: var(--ink-2); }
-.sent .note { max-width: 420px; }
-@keyframes pop { 0% { transform: scale(0.5); } 70% { transform: scale(1.08); } 100% { transform: scale(1); } }
+.sent { text-align: center; padding: 10px 0 8px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.sent-ico { width: 72px; height: 72px; border-radius: 50%; border: 1px solid var(--accent-35); color: var(--accent); display: grid; place-items: center; margin-bottom: 6px; animation: pop 0.45s ease; }
+.sent .q { margin-top: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.sent-sum { margin: 8px 0 6px; font-family: var(--font-serif); font-size: 18px; letter-spacing: 0.05em; color: var(--cream); }
+.sent .note { max-width: 24rem; }
+@keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
 
-.spinner { width: 36px; height: 36px; margin: 30px auto; border-radius: 50%; border: 3px solid var(--cream-200); border-top-color: var(--wine-600); animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { position: relative; width: 44px; height: 44px; margin: 40px auto; border-radius: 50%; border: 1px solid var(--border); }
+.spinner::after { content: ''; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid transparent; border-top-color: var(--accent); animation: spin-ring 1.1s linear infinite; }
+
+.foot { padding: 34px 24px 8px; text-align: center; color: rgb(140 138 124 / 0.5); font-size: 10px; line-height: 1.7; }
+.foot p { margin: 0; }
 
 @media (max-width: 560px) {
-  .g { padding: 12px 10px 32px; }
-  .card { padding: 20px 18px 24px; border-radius: 22px; }
-  .head { margin-bottom: 18px; }
-  .brand-sub { display: none; }
-  .lang { min-width: 40px; }
-  .title { font-size: 32px; }
-  .progress li { font-size: 0; gap: 0; justify-content: center; }
-  .progress li span { font-size: 12px; }
+  .card { padding: 0 16px 8px; }
+  .head { padding: 60px 0 24px; }
+  .logo img { height: 80px; }
+  .langs { right: -4px; top: 16px; }
+  .progress li { font-size: 9px; letter-spacing: 0.1em; flex-direction: column; gap: 2px; }
   .form-row { grid-template-columns: 1fr; }
   .grid--dates { grid-template-columns: repeat(4, 1fr); }
   .grid--times { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Številke v Inter (kot cene v vinski karti) */
+.opt--num, .opt--time, .od-day { font-family: var(--font-sans); font-weight: 300; font-variant-numeric: tabular-nums lining-nums; }

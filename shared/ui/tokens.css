@@ -1,55 +1,64 @@
-/* Deliz — skupni oblikovni žetoni (osebje + gostje) */
+/* Deliz — skupni oblikovni žetoni (osebje + gostje).
+   Paleta in tipografija po spletni vinski karti Deliz (mapa «референс»). */
 :root {
-  --wine-950: #1f0910;
-  --wine-900: #2e0e18;
-  --wine-800: #431523;
-  --wine-700: #5b1d30;
-  --wine-600: #76283f;
-  --wine-500: #93374f;
-  --wine-200: #e6c9cd;
-  --wine-100: #f3e3e2;
+  --bg: #0D0D0D;
+  --surface: #161616;
+  --surface-2: #1E1E1E;
+  --surface-3: #262420;
+  --border: #2A2318;
+  --border-2: #3B3224;
 
-  --cream-50: #fcf9f3;
-  --cream-100: #f6efe3;
-  --cream-200: #ece1cf;
-  --cream-300: #ddcdb4;
+  --cream: #FEFFE8;
+  --text-2: rgb(254 255 232 / 0.72);
+  --muted: #8C8A7C;
+  --muted-2: rgb(140 138 124 / 0.6);
 
-  --ink: #2a1d1a;
-  --ink-2: #57463f;
-  --muted: #8a776d;
-  --line: #e3d6c3;
+  --accent: #FFFFFF;           /* prej zlata #C9A456 — zdaj bela */
+  --accent-12: rgb(255 255 255 / 0.12);
+  --accent-35: rgb(255 255 255 / 0.35);
+  --gold-dim: #5C4420;
 
-  --gold: #b48a4e;
-  --gold-soft: #ead8b6;
-  --ok: #3f6a4a;
-  --ok-soft: #dfeadc;
-  --warn: #a8641c;
-  --warn-soft: #f6e4c9;
-  --danger: #9b2c2c;
-  --danger-soft: #f5dcd8;
+  --burgundy: #8C2233;
+  --burgundy-2: #A32A3E;
+  --burgundy-soft: rgb(140 34 51 / 0.14);
 
-  --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
-  --font-ui: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ok: #4F7D5A;
+  --ok-soft: rgb(79 125 90 / 0.16);
+  --warn: #B98A3E;
+  --warn-soft: rgb(185 138 62 / 0.14);
+
+  --font-serif: 'Bookmania', 'Bookman Old Style', 'URW Bookman', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
   --r-sm: 10px;
   --r-md: 14px;
-  --r-lg: 20px;
-  --shadow-1: 0 1px 2px rgb(46 14 24 / 0.06), 0 2px 8px rgb(46 14 24 / 0.05);
-  --shadow-2: 0 10px 40px rgb(31 9 16 / 0.22);
+  --r-lg: 18px;
+  --shadow: 0 24px 60px rgb(0 0 0 / 0.55);
   --tap: 60px;
+
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: var(--font-ui);
-  color: var(--ink);
-  background: var(--cream-100);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--cream);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: 'tnum' 1, 'ss01' 1;
+  -webkit-tap-highlight-color: transparent;
+  font-variant-numeric: tabular-nums;
 }
 button, input, textarea, select { font: inherit; color: inherit; }
-button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+button { cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Napis s presledki — kot naslovi kategorij v vinski karti */
+.caps { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes spin-ring { to { transform: rotate(360deg); } }
+@keyframes pulse-soft { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
