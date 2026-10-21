@@ -4,6 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Deliz · Rezervacije</title>
+  <script>
+    /* tema pred prvim izrisom: ?theme=… → shranjena izbira → sistem */
+    (function (d) {
+      var p = 'system';
+      try { p = new URLSearchParams(location.search).get('theme') || localStorage.getItem('deliz.theme.' + (location.pathname.indexOf('/staff') > -1 ? 'staff' : 'guest')) || 'system'; } catch (e) {}
+      d.dataset.themePref = p;
+      d.dataset.theme = p === 'system' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : p;
+    })(document.documentElement);
+  </script>
   <meta name="theme-color" content="#0D0D0D">
   <link rel="icon" type="image/png" href="staff/icons/favicon.png">
   <link rel="apple-touch-icon" href="staff/icons/apple-touch-icon.png">
@@ -14,18 +23,18 @@
   <style>
     body { min-height: 100dvh; display: flex; justify-content: center; }
     .wrap { width: min(36rem, 100%); padding: 64px 20px 40px; text-align: center; position: relative; animation: fade-in-up 0.32s ease-out both; }
-    .glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 20rem; height: 7rem; border-radius: 50%; background: #fff; filter: blur(64px); opacity: 0.07; }
+    .glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 20rem; height: 7rem; border-radius: 50%; background: var(--glow); filter: blur(64px); opacity: var(--glow-opacity); }
     .logo { height: 112px; width: auto; }
     .sub { margin-top: 26px; font-family: var(--font-serif); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
     .lead { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 14px auto 36px; max-width: 26rem; }
     .cards { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
     a.c { display: flex; align-items: center; gap: 16px; padding: 22px 6px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--border); text-align: left; transition: background 0.2s; }
-    a.c:hover { background: rgb(255 255 255 / 0.03); }
+    a.c:hover { background: var(--hover); }
     .c div { flex: 1; }
     .c b { display: block; font-family: var(--font-serif); font-weight: 400; font-size: 1.05rem; letter-spacing: 0.06em; }
     .c small { display: block; margin-top: 6px; font-size: 11px; color: var(--muted); line-height: 1.6; }
     .c em { font-style: normal; font-size: 9.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
-    .foot { margin-top: 30px; font-size: 10px; color: rgb(140 138 124 / 0.6); line-height: 1.8; }
+    .foot { margin-top: 30px; font-size: 10px; color: var(--muted-2); line-height: 1.8; }
     .foot a { color: var(--cream); text-decoration: none; border-bottom: 1px solid var(--accent-35); }
   </style>
 </head>
@@ -48,5 +57,6 @@
     <p class="foot">Demo način: podatki so shranjeni samo v tem brskalniku.<br>Zahteva iz obrazca se pojavi v aplikaciji za osebje na isti napravi.<br><br>
       <a href="guest/embed-demo.html">Primer vdelave v spletno stran</a></p>
   </div>
+  <script type="module" src="shared/ui/theme.js"></script>
 </body>
 </html>

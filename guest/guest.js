@@ -4,6 +4,7 @@ import { VENUE } from '../shared/config.js';
 import { toISODate, parseISODate, timeSlots } from '../shared/availability.js';
 import { getAdapter } from '../shared/data/index.js';
 import { T, LANGS } from './i18n.js';
+import { setThemePref, currentTheme } from '../shared/ui/theme.js';
 
 const adapter = getAdapter();
 const $g = document.getElementById('g');
@@ -11,6 +12,8 @@ const params = new URLSearchParams(location.search);
 const embedded = params.has('embed');
 if (embedded) document.documentElement.classList.add('is-embed');
 
+const SUN = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 function initialLang() {
@@ -123,6 +126,8 @@ function render() {
       <header class="head">
         <nav class="langs" aria-label="Language">
           ${LANGS.map((l) => `<button class="lang ${S.lang === l ? 'is-on' : ''}" data-act="lang" data-l="${l}" aria-pressed="${S.lang === l}">${l.toUpperCase()}</button>`).join('<span class="lang-sep" aria-hidden="true">|</span>')}
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button class="lang theme-btn" data-act="theme" aria-label="${currentTheme() === 'dark' ? 'Light theme' : 'Dark theme'}">${currentTheme() === 'dark' ? SUN : MOON}</button>
         </nav>
         <div class="glow" aria-hidden="true"></div>
         <h1 class="logo"><img src="../shared/ui/deliz-logo.png" alt="Deliz"></h1>
@@ -181,6 +186,7 @@ async function send() {
 
 const actions = {
   lang: ({ l }) => { S.lang = l; S.errors = {}; },
+  theme: () => { setThemePref(currentTheme() === 'dark' ? 'light' : 'dark', { persist: !embedded }); },
   guests: ({ n }) => { S.guests = Number(n); S.date = null; S.time = null; S.step = 1; loadDates(); return false; },
   date: ({ d }) => { S.date = d; S.time = null; S.step = 2; },
   time: ({ t: time }) => { S.time = time; S.step = 3; },
@@ -207,5 +213,6 @@ function postHeight() {
   requestAnimationFrame(() => window.parent.postMessage({ type: 'deliz:height', height: $g.offsetHeight + 2 }, '*'));
 }
 window.addEventListener('resize', postHeight);
+matchMedia('(prefers-color-scheme: light)').addEventListener?.('change', () => render());
 
 render();

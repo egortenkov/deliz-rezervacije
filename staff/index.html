@@ -4,6 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <title>Deliz · Rezervacije</title>
+  <script>
+    /* tema pred prvim izrisom: ?theme=… → shranjena izbira → sistem */
+    (function (d) {
+      var p = 'system';
+      try { p = new URLSearchParams(location.search).get('theme') || localStorage.getItem('deliz.theme.' + (location.pathname.indexOf('/staff') > -1 ? 'staff' : 'guest')) || 'system'; } catch (e) {}
+      d.dataset.themePref = p;
+      d.dataset.theme = p === 'system' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : p;
+    })(document.documentElement);
+  </script>
   <meta name="theme-color" content="#0D0D0D">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">

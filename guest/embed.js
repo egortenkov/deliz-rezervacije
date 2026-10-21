@@ -5,19 +5,21 @@
  *   <script src="https://<uporabnik>.github.io/<repo>/guest/embed.js" data-lang="sl" async></script>
  *
  * data-lang: sl | en | de | it (neobvezno; privzeto jezik brskalnika)
+ * data-theme: light | dark | system (neobvezno; privzeto system — sledi napravi obiskovalca)
  * data-target: id elementa (neobvezno; privzeto «deliz-booking», sicer se vstavi za skripto)
  */
 (function () {
   var script = document.currentScript;
   var base = script.src.replace(/embed\.js(\?.*)?$/, '');
   var lang = script.getAttribute('data-lang');
+  var theme = script.getAttribute('data-theme');
   var target = document.getElementById(script.getAttribute('data-target') || 'deliz-booking');
 
   var iframe = document.createElement('iframe');
-  iframe.src = base + '?embed=1' + (lang ? '&lang=' + encodeURIComponent(lang) : '');
+  iframe.src = base + '?embed=1' + (lang ? '&lang=' + encodeURIComponent(lang) : '') + (theme ? '&theme=' + encodeURIComponent(theme) : '');
   iframe.title = 'Deliz — rezervacija mize';
   iframe.loading = 'lazy';
-  iframe.style.cssText = 'width:100%;max-width:640px;border:0;display:block;margin:0 auto;height:620px;overflow:hidden;background:#0D0D0D;border-radius:16px;';
+  iframe.style.cssText = 'width:100%;max-width:640px;border:0;display:block;margin:0 auto;height:620px;overflow:hidden;border-radius:16px;';
   iframe.setAttribute('scrolling', 'no');
 
   if (target) target.appendChild(iframe);

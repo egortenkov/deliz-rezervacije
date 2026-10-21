@@ -6,6 +6,7 @@ import {
   canBookWholeVenue, validateTables, occupancy,
 } from '../shared/availability.js';
 import { getAdapter } from '../shared/data/index.js';
+import { getThemePref, setThemePref, currentTheme } from '../shared/ui/theme.js';
 import { Outbox } from '../shared/data/outbox.js';
 import { uid } from '../shared/data/demo-adapter.js';
 import {
@@ -210,6 +211,7 @@ function rail() {
       <div class="rail-foot">
         ${!outbox.online ? `<div class="net-off" title="Brez povezave">${icon('wifiOff', 22)}<span>brez povezave</span></div>` : ''}
         ${unsent ? `<div class="net-queue">${unsent} ni poslano</div>` : ''}
+        <button class="rail-theme" data-act="theme-toggle" aria-label="${currentTheme() === 'dark' ? 'Svetla tema' : 'Temna tema'}">${icon(currentTheme() === 'dark' ? 'sun' : 'moon', 24)}</button>
         <button class="avatar" data-act="nav" data-view="settings" aria-label="Oseba: ${esc(S.user.name)}">${esc(S.user.name[0])}</button>
       </div>
     </nav>`;
@@ -536,6 +538,16 @@ function settingsView() {
         ${sw('toggle-terrace', S.settings.terraceOpen !== false, 'Terasa odprta', 'Ko je izklopljeno, terasnih miz ni mogoče rezervirati — ne osebje ne gostje.')}
       </section>
       <section class="sgroup">
+        <h2 class="lbl lbl--section">Videz</h2>
+        <div class="setting setting--static">
+          <span><b>Tema</b><small>«Sistem» sledi nastavitvi iPada (svetlo podnevi, temno zvečer).</small></span>
+          <div class="seg" role="radiogroup" aria-label="Tema">
+            ${[['system', 'half', 'Sistem'], ['light', 'sun', 'Svetla'], ['dark', 'moon', 'Temna']].map(([v, ic, l]) =>
+              `<button class="seg-btn ${getThemePref() === v ? 'is-on' : ''}" role="radio" aria-checked="${getThemePref() === v}" data-act="theme" data-v="${v}">${icon(ic, 20)}<span>${l}</span></button>`).join('')}
+          </div>
+        </div>
+      </section>
+      <section class="sgroup">
         <h2 class="lbl lbl--section">Oseba</h2>
         <div class="setting setting--static">
           <span class="person-i person-i--sm">${esc(S.user.name[0])}</span>
@@ -731,6 +743,8 @@ const actions = {
     toast(on ? 'Terasa je odprta.' : 'Terasa je zaprta — terasnih miz ni mogoče rezervirati.', 'info');
   },
   'toggle-offline': () => { outbox.simulateOffline = !outbox.simulateOffline; },
+  theme: ({ v }) => { setThemePref(v); },
+  'theme-toggle': () => { setThemePref(currentTheme() === 'dark' ? 'light' : 'dark'); },
   'reset-demo': async () => {
     if (!confirm('Ponastavim demo podatke? Vse spremembe bodo izgubljene.')) return false;
     await adapter.reset?.();
@@ -769,6 +783,7 @@ window.addEventListener('online', () => { refresh(); toast('Povezava je spet vzp
 window.addEventListener('offline', () => render());
 adapter.subscribe(() => refresh());
 setInterval(refresh, 15000);
+matchMedia('(prefers-color-scheme: light)').addEventListener?.('change', () => render());
 document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
 
 if ('serviceWorker' in navigator && location.protocol === 'https:') {

@@ -36,8 +36,67 @@
   --shadow: 0 24px 60px rgb(0 0 0 / 0.55);
   --tap: 60px;
 
+  /* semantični odtenki, ki se med temama razlikujejo */
+  --ok-text: #9CC7A6;
+  --danger-text: #E0707F;
+  --fg-hover: #E9EAD2;           /* polnilo gumba «Shrani» ob dotiku */
+  --hover: rgb(255 255 255 / 0.06);
+  --dots: rgb(255 255 255 / 0.05);
+  --stripe: rgb(42 35 24 / 0.6);
+  --scrim: rgb(0 0 0 / 0.62);
+  --glow: #FFFFFF;
+  --glow-opacity: 0.07;
+  --logo-filter: none;
+  --on-burgundy: #FEFFE8;
+  --on-ok: #FFFFFF;
+
   color-scheme: dark;
 }
+
+/* Svetla tema — topel «papir» namesto črne, enaka bordo barva in tipografija. */
+:root[data-theme="light"] {
+  --bg: #FAF8F0;
+  --surface: #FFFFFF;
+  --surface-2: #F4F1E6;
+  --surface-3: #ECE7D8;
+  --border: #E5DECD;
+  --border-2: #D4CBB5;
+
+  --cream: #1C1915;             /* glavna barva besedila (v temni temi je to krem) */
+  --text-2: rgb(28 25 21 / 0.72);
+  --muted: #7A7568;
+  --muted-2: rgb(122 117 104 / 0.7);
+
+  --accent: #0D0D0D;
+  --accent-12: rgb(13 13 13 / 0.06);
+  --accent-35: rgb(13 13 13 / 0.28);
+
+  --burgundy: #8C2233;
+  --burgundy-2: #8C2233;
+  --burgundy-soft: rgb(140 34 51 / 0.08);
+
+  --ok: #3F6B4A;
+  --ok-soft: rgb(63 107 74 / 0.1);
+  --warn: #9A6A1F;
+  --warn-soft: rgb(154 106 31 / 0.1);
+
+  --ok-text: #2F5A3A;
+  --danger-text: #8C2233;
+  --fg-hover: #2C2822;
+  --hover: rgb(13 13 13 / 0.04);
+  --dots: rgb(13 13 13 / 0.07);
+  --stripe: rgb(212 203 181 / 0.7);
+  --scrim: rgb(28 25 21 / 0.32);
+  --glow: #B9A27A;
+  --glow-opacity: 0.12;
+  --logo-filter: brightness(0) opacity(0.86);
+  --shadow: 0 20px 50px rgb(60 45 20 / 0.16);
+
+  color-scheme: light;
+}
+
+img[src$="deliz-logo.png"] { filter: var(--logo-filter); }
+body { transition: background-color 0.25s, color 0.25s; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
