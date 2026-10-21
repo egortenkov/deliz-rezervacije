@@ -5,7 +5,7 @@ import { VENUE } from '../config.js';
 import { toISODate, availableDatesForGuests, suggestTables } from '../availability.js';
 import { buildSeed } from './seed.js';
 
-const KEY = 'deliz.demo.v1';
+const KEY = 'deliz.demo.v2'; // v2: nova razporeditev miz
 const EVENT = 'deliz:data';
 
 export const uid = () =>

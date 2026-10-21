@@ -179,12 +179,18 @@ export function floorPlan(iso, reservations, settings, { mode = 'view', selected
     </button>`;
   };
 
+  // Oprema (šank, vhod) — samo za orientacijo, ni klikljiva.
+  const fixtureEl = (f) => f.kind === 'door'
+    ? `<div class="fx fx--door" style="left:${f.x}%;width:${f.w}%" aria-hidden="true"><span class="fx-label">↑ ${esc(f.label)}</span></div>`
+    : `<div class="fx fx--${f.kind}" style="left:${f.x}%;top:${f.y}%;width:${f.w}%;height:${f.h}%" aria-hidden="true"><span class="fx-label">${esc(f.label)}</span></div>`;
+
   const area = (key, cls) => {
     const tables = VENUE.tables.filter((t) => t.area === key);
     const closed = key === 'terrace' && !terraceOpen;
     return `
       <div class="room ${cls} ${closed ? 'is-closed' : ''}">
         <div class="room-label">${VENUE.areas[key]}${closed ? ' · zaprta' : ''}</div>
+        ${(VENUE.fixtures || []).filter((f) => f.area === key).map(fixtureEl).join('')}
         ${tables.map(tableEl).join('')}
       </div>`;
   };

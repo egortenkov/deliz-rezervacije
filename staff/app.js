@@ -68,6 +68,7 @@ function allRes() {
 let lastSig = '';
 let lastView = null;
 async function refresh() {
+  if (adapter.login && !adapter.hasSession) return; // brez prijave strežnik ne vrne podatkov
   try {
     const t = todayISO();
     const [res, reqs, settings] = await Promise.all([
@@ -238,7 +239,7 @@ function lockScreen() {
     <div class="lock">
       <div class="lock-brand"><img src="../shared/ui/deliz-logo.png" alt="Deliz"><span class="caps">Rezervacije</span></div>
       <h1 class="lock-q">Živjo, ${esc(STAFF.find((s) => s.id === p.user).name)}</h1>
-      <p class="lock-hint">Vnesi PIN <span class="demo-tag">demo: ${DEMO_PIN}</span></p>
+      <p class="lock-hint">Vnesi PIN${adapter.name === 'demo' ? ` <span class="demo-tag">demo: ${DEMO_PIN}</span>` : ''}</p>
       <div class="dots ${p.error ? 'is-err' : ''}">${dots}</div>
       <div class="pinpad">
         ${keys.map((k) => k === 'back'
@@ -623,6 +624,33 @@ function renderModal() {
 
 // ---------- dejanja ----------
 
+// Prijava prek strežnika (Apps Script): PIN preveri strežnik, vrne žeton.
+async function serverLogin(userId, pin) {
+  try {
+    await adapter.login(userId, pin);
+    const s = STAFF.find((x) => x.id === userId);
+    S.user = { id: s.id, name: s.name };
+    store.set('deliz.user', S.user);
+    S.pin = { user: null, entry: '', error: false };
+    S.knownPending = null;
+    render();
+    refresh();
+    outbox.flush();
+  } catch (e) {
+    const offline = !navigator.onLine || !/PIN/.test(e.message);
+    S.pin = { user: userId, entry: '', error: true };
+    if (offline) toast('Strežnik ni dosegljiv — poskusi znova.', 'warn');
+    navigator.vibrate?.(200);
+    render();
+  }
+}
+
+window.addEventListener('deliz:logout', () => {
+  if (!S.user) return;
+  store.del('deliz.user'); S.user = null; render();
+  toast('Prijava je potekla — vnesi PIN.', 'warn');
+});
+
 const actions = {
   'pick-user': ({ id }) => { unlockAudio(); S.pin = { user: id, entry: '', error: false }; },
   'pin-key': ({ k }) => {
@@ -631,6 +659,7 @@ const actions = {
     if (p.entry.length >= 4) return;
     p.entry += k; p.error = false;
     if (p.entry.length === 4) {
+      if (adapter.login) { serverLogin(p.user, p.entry); return; }
       if (p.entry === DEMO_PIN) {
         const s = STAFF.find((x) => x.id === p.user);
         S.user = { id: s.id, name: s.name };
@@ -646,7 +675,7 @@ const actions = {
   },
   'pin-back': () => { S.pin.entry = S.pin.entry.slice(0, -1); },
   'pin-cancel': () => { S.pin = { user: null, entry: '', error: false }; },
-  logout: () => { store.del('deliz.user'); S.user = null; },
+  logout: () => { store.del('deliz.user'); adapter.logout?.(); S.user = null; },
 
   nav: ({ view }) => { S.view = view; S.modal = null; S.focus = null; window.scrollTo(0, 0); },
 
@@ -777,6 +806,9 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ---------- zagon ----------
+
+// Shranjena oseba brez strežniškega žetona (npr. po preklopu iz demo načina) → ponovna prijava.
+if (adapter.login && !adapter.hasSession && S.user) { store.del('deliz.user'); S.user = null; }
 
 outbox.onChange(() => refresh());
 window.addEventListener('online', () => { refresh(); toast('Povezava je spet vzpostavljena.', 'ok'); });

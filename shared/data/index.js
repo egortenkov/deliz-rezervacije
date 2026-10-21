@@ -1,8 +1,8 @@
 // Izbira podatkovnega sloja — ENA nastavitev.
 //   'demo'       → DemoAdapter (localStorage, vnaprej izpolnjene rezervacije)
 //   'appsscript' → AppsScriptAdapter (Google Sheets prek Apps Script spletne aplikacije)
-export const DATA_ADAPTER = 'demo';
-export const APPS_SCRIPT_URL = ''; // https://script.google.com/macros/s/…/exec
+export const DATA_ADAPTER = 'appsscript';
+export const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7jQRWPZbQQp2vwQV_olChc3fsXXBFYRzWrEvpLSrkeLRs4QvMdroM-gWaeg0DnvA/exec';
 
 import { DemoAdapter } from './demo-adapter.js';
 import { AppsScriptAdapter } from './appsscript-adapter.js';

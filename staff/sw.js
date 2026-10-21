@@ -1,9 +1,9 @@
 // Service worker: aplikacija se odpre tudi brez povezave.
 // Strategija: najprej omrežje (sveže različice), ob napaki predpomnilnik.
-const CACHE = 'deliz-staff-v3';
+const CACHE = 'deliz-staff-v5';
 const SHELL = [
   './', './index.html', './app.js', './ui.js', './staff.css', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/apple-touch-icon.png',
+  './icons/icon-192.png', './icons/apple-touch-icon.png', './icons/favicon.png', './icons/favicon-32.png', '../favicon.ico',
   '../shared/config.js', '../shared/availability.js', '../shared/ui/tokens.css', '../shared/ui/deliz-logo.png', '../shared/ui/theme.js',
   '../shared/data/index.js', '../shared/data/demo-adapter.js', '../shared/data/appsscript-adapter.js',
   '../shared/data/outbox.js', '../shared/data/seed.js',

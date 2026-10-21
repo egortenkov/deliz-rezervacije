@@ -1,7 +1,7 @@
-# API для AppsScriptAdapter (черновик)
+# API для AppsScriptAdapter
 
-> Файл `PLAN-reservations.md` при сборке прототипа не был найден, поэтому контракт ниже составлен
-> по требованиям к прототипу. Перед написанием Apps Script сверить с разделом «0.1 Решения заказчика».
+> Реализация — `backend/Code.gs` + `backend/Config.gs` (копия столов/часов из `shared/config.js`).
+> Развёрнуто в проекте Apps Script «Deliz Rezervacije API», привязанном к таблице «Deliz · Rezervacije».
 
 Один веб-эндпоинт Apps Script (`doPost`), развёрнутый как «Web app: Execute as me, Access: Anyone».
 Клиент шлёт `POST` с `Content-Type: text/plain` (без CORS preflight), тело — JSON:
@@ -44,3 +44,13 @@
 группы, простую защиту от спама (honeypot-поле + ограничение частоты по телефону).
 
 Модели данных — см. комментарий в `shared/data/index.js`.
+
+## Обслуживание
+
+- **PIN:** в редакторе Apps Script выбрать функцию `setPin`, но проще выполнить в консоли проекта
+  `setPin('gleb', '4821')`. Изначально у Gleb и Franc PIN `1234`.
+- **Уведомления:** Project Settings → Script properties: `STAFF_EMAIL` (по умолчанию — владелец скрипта),
+  `TELEGRAM_TOKEN` + `TELEGRAM_CHAT` для Telegram-бота.
+- **Изменили столы/часы в `shared/config.js`** → обновить строку `const VENUE = …` в скрипте
+  и сделать «Развертывание → Управление → Изменить → Новая версия» (URL не меняется).
+- Все ячейки таблицы хранятся как текст (формат `@`), даты — `YYYY-MM-DD`, столы — через запятую.
