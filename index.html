@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="sl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Deliz · Rezervacije</title>
+  <meta name="theme-color" content="#2e0e18">
+  <link rel="icon" type="image/png" href="staff/icons/favicon.png">
+  <link rel="apple-touch-icon" href="staff/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="shared/ui/tokens.css">
+  <style>
+    body {
+      min-height: 100dvh; margin: 0; display: flex; align-items: center; justify-content: center; padding: 32px 16px;
+      background: var(--wine-900);
+      background-image: radial-gradient(90% 60% at 50% 0%, rgb(118 40 63 / 0.7), transparent 70%), radial-gradient(60% 50% at 50% 110%, rgb(180 138 78 / 0.2), transparent 70%);
+      color: var(--cream-50);
+    }
+    .wrap { width: min(760px, 100%); text-align: center; }
+    .word { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(64px, 14vw, 104px); line-height: 1; }
+    .sub { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 12px; }
+    p.lead { color: rgb(246 239 227 / 0.75); font-size: 18px; line-height: 1.6; margin: 28px auto 36px; max-width: 520px; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; }
+    a.c {
+      display: flex; flex-direction: column; gap: 8px; padding: 26px; border-radius: 22px; text-decoration: none; color: inherit;
+      background: rgb(255 255 255 / 0.05); border: 1px solid rgb(234 216 182 / 0.2); min-height: 170px; transition: background 0.15s;
+    }
+    a.c:hover { background: rgb(255 255 255 / 0.09); }
+    .c b { font-family: var(--font-display); font-weight: 400; font-size: 28px; }
+    .c span { color: rgb(246 239 227 / 0.7); line-height: 1.5; font-size: 15px; }
+    .c em { margin-top: auto; font-style: normal; color: var(--gold-soft); font-weight: 700; font-size: 14px; }
+    .foot { margin-top: 30px; font-size: 13px; color: rgb(246 239 227 / 0.5); line-height: 1.6; }
+    .foot a { color: var(--gold-soft); }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="word">Deliz</div>
+    <div class="sub">rezervacije · prototip</div>
+    <p class="lead">Rezervacije miz brez papirja: aplikacija za osebje na iPadu in obrazec za goste na spletni strani.</p>
+    <div class="cards">
+      <a class="c" href="staff/">
+        <b>Za osebje</b>
+        <span>Nova rezervacija v nekaj dotikih, pregled dneva, shema miz, spletne zahteve.</span>
+        <em>Odpri aplikacijo → &nbsp;PIN 1234</em>
+      </a>
+      <a class="c" href="guest/">
+        <b>Za goste</b>
+        <span>Obrazec v slovenščini, angleščini, nemščini in italijanščini — samo prosti dnevi.</span>
+        <em>Odpri obrazec →</em>
+      </a>
+    </div>
+    <p class="foot">Demo način: podatki so shranjeni samo v tem brskalniku. Zahteva iz obrazca se pojavi v aplikaciji za osebje na isti napravi.<br>
+      <a href="guest/embed-demo.html">Primer vdelave v spletno stran</a></p>
+  </div>
+</body>
+</html>
